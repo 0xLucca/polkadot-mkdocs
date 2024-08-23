@@ -6,5 +6,8 @@ on:
 jobs:
   review-docs:
     uses: ./.github/workflows/reusable-vale.yml
+    with:
+        repo: ${{ github.repository }}
+        pr_number: ${{ github.event.pull_request.number }}
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
