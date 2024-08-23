@@ -25,17 +25,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          repository: 0xLucca/polkadot-docs-test
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
           repository: 0xLucca/polkadot-mkdocs
           sparse-checkout: |
             .github/styles
             .vale.ini
           sparse-checkout-cone-mode: false
+          path: vale
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          repository: 0xLucca/polkadot-docs-test
-          path: docs
+      - name: Move Vale files
+        run: |
+          mv vale/.vale.ini .
+          mv vale/.github/styles .github/styles
 
       - name: Get modified files
         env:
