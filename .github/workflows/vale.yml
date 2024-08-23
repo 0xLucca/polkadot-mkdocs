@@ -5,32 +5,6 @@ on:
 
 jobs:
   review-docs:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    outputs:
-      files: ${{ steps.get-modified-files.outputs.files }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Get modified files
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        id: get-modified-files
-        run: |
-          changed_files=$(gh pr diff --name-only ${{ github.event.pull_request.number }} | grep '\.md$' || true)
-          md_files=$(echo "$changed_files" | jq -R -s 'split("\n")[:-1]' | jq -c .)
-          echo "Modified md files: $md_files"
-          echo "files=$md_files" >> $GITHUB_OUTPUT
-
-      - name: Review docs
-        uses: errata-ai/vale-action@reviewdog
-        with:
-          files: ${{ steps.get-modified-files.outputs.files }}
-          vale_flags: "--no-exit --minAlertLevel=error"
-          reporter: github-pr-review
-          fail_on_error: true
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          REVIEWDOG_GITHUB_API_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    uses: ./.github/workflows/reusable-vale.yml
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
