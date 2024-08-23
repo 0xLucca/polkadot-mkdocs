@@ -37,7 +37,7 @@ jobs:
           md_files=$(echo "$changed_files" | jq -R -s 'split("\n")[:-1]' | jq -c .)
           echo "Modified md files: $md_files"
           echo "files=$md_files" >> $GITHUB_OUTPUT
-          ll
+          ls -al
           cat ./overview.md
 
       - name: Review docs
