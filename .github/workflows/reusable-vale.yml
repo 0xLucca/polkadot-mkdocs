@@ -2,7 +2,7 @@ name: Reusable Vale Review
 on:
     workflow_call:
       secrets:
-        GITHUB_TOKEN:
+        GH_TOKEN:
           required: true
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
 
       - name: Get modified files
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         id: get-modified-files
         run: |
           changed_files=$(gh pr diff --name-only ${{ github.event.pull_request.number }} | grep '\.md$' || true)
@@ -39,6 +39,7 @@ jobs:
           echo "files=$md_files" >> $GITHUB_OUTPUT
 
       - name: Review docs
+        if: ${{ steps.get-modified-files.outputs.files != '[""]' }}
         uses: errata-ai/vale-action@reviewdog
         with:
           files: ${{ steps.get-modified-files.outputs.files }}
@@ -46,5 +47,5 @@ jobs:
           reporter: github-pr-review
           fail_on_error: true
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          REVIEWDOG_GITHUB_API_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{secrets.GH_TOKEN}}
