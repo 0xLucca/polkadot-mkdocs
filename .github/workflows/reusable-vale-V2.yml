@@ -32,6 +32,7 @@ jobs:
         with:
           repository: 0xLucca/polkadot-mkdocs
           sparse-checkout: |
+            .github/scripts/process_output.py
             .github/styles
             .vale.ini
           sparse-checkout-cone-mode: false
@@ -39,6 +40,7 @@ jobs:
 
       - name: Move Vale files
         run: |
+          mv vale/process_output.py .
           mv vale/.vale.ini .
           mv vale/.github/styles .github/styles
 
@@ -69,8 +71,7 @@ jobs:
 
       - name: Run Vale
         run: |
-          ls -al bin
-          ./bin/vale ${{ steps.get-modified-files.outputs.files }} > output.json || true
+          ./bin/vale ${{ steps.get-modified-files.outputs.files }} | tee output.json || true
         
       - name: Process Vale's output and create a review
         env:
@@ -78,4 +79,4 @@ jobs:
           PR_NUMBER: ${{ inputs.pr_number }}
           REPO: ${{ inputs.repo }}
         run: |
-          python .github/scripts/process_output.py
+          python process_output.py
