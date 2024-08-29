@@ -40,7 +40,7 @@ jobs:
 
       - name: Move Vale files
         run: |
-          mv vale/process_output.py .
+          mv vale/.github/scripts/process_output.py .
           mv vale/.vale.ini .
           mv vale/.github/styles .github/styles
 
