@@ -37,7 +37,9 @@ with open('output.json', 'r') as f:
 comments = []
 for file_path, issues in data.items():
     for issue in issues:
+        print(f"Processing issue: {issue['Message']}")
         position = get_position_in_diff(file_path, issue['Line'])
+        print(f"Position in diff: {position}")
         if position is not None:
             comments.append({
                 'path': file_path,
