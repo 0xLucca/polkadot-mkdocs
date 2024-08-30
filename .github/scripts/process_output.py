@@ -23,7 +23,7 @@ headers = {
 }
 
 payload = {
-    'commit_id': os.environ['GITHUB_SHA'],
+    'commit_id': os.environ['COMMIT_SHA'],
     'event': 'COMMENT',
     'comments': comments
 }

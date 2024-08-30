@@ -10,6 +10,10 @@ on:
         description: "The pull request number to check"
         required: true
         type: string
+      commit_sha:
+        description: "The commit SHA to check"
+        required: true
+        type: string
     secrets:
       GH_TOKEN:
         required: true
@@ -77,6 +81,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           PR_NUMBER: ${{ inputs.pr_number }}
-          REPO: ${{ inputs.repo }}
+          REPO: ${{ inputs.repo }}\
+          COMMIT_SHA: ${{ inputs.commit_sha }}
         run: |
           python process_output.py
