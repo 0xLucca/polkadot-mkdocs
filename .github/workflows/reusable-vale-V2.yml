@@ -50,7 +50,7 @@ jobs:
         id: get-modified-files
         run: |
           changed_files=$(gh pr diff --repo ${{ inputs.repo }} --name-only ${{ inputs.pr_number }} | grep '\.md$' || true)
-          md_files=$(echo "$changed_files" | jq -R -s 'split("\n")[:-1]' | jq -c .)
+          md_files=$(echo "$changed_files" | tr '\n' ' ' | sed 's/ $//')
           echo "Modified md files: $md_files"
           echo "files=$md_files" >> $GITHUB_OUTPUT
 
