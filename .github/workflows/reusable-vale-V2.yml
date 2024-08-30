@@ -71,7 +71,7 @@ jobs:
 
       - name: Run Vale
         run: |
-          ./bin/vale ${{ steps.get-modified-files.outputs.files }} | tee output.json || true
+          ./bin/vale --output="JSON" ${{ steps.get-modified-files.outputs.files }} | tee output.json || true
         
       - name: Process Vale's output and create a review
         env:
