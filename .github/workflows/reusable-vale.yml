@@ -57,7 +57,7 @@ jobs:
         uses: errata-ai/vale-action@reviewdog
         with:
           files: ${{ steps.get-modified-files.outputs.files }}
-          vale_flags: "--no-exit --minAlertLevel=error"
+          vale_flags: "--no-exit"
           reporter: github-pr-review
           fail_on_error: true
         env:
