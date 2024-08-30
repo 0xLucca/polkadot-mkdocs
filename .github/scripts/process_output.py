@@ -24,13 +24,13 @@ headers = {
 }
 
 payload = {
-    'commit_id': os.environ['GITHUB_SHA'],
+    'commit_id': os.environ['COMMIT_SHA'],
     'body': 'Automated review from Vale',
     'event': 'COMMENT',
     'comments': comments
 }
 
-owner, repo = os.environ['GITHUB_REPOSITORY'].split('/')
+owner, repo = os.environ['REPO'].split('/')
 pr_number = os.environ['PR_NUMBER']
 
 url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/reviews"
