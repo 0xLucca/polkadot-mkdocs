@@ -26,10 +26,15 @@ jobs:
     outputs:
       files: ${{ steps.get-modified-files.outputs.files }}
     steps:
+      - name: Get PR branch
+        uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+        
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           repository: 0xLucca/polkadot-docs-test
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
 
       - name: Checkout repository
         uses: actions/checkout@v4
