@@ -58,7 +58,7 @@ jobs:
         with:
           files: ${{ steps.get-modified-files.outputs.files }}
           vale_flags: "--no-exit"
-          reporter: github-pr-review
+          reporter: github-check
           fail_on_error: true
         env:
           GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
