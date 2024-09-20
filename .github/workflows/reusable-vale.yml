@@ -58,9 +58,12 @@ jobs:
         with:
           files: ${{ steps.get-modified-files.outputs.files }}
           vale_flags: "--no-exit"
-          reporter: github-check
+          reporter: github-pr-review
           fail_on_error: true
         env:
           GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
           REVIEWDOG_GITHUB_API_TOKEN: ${{secrets.GH_TOKEN}}
           CI_PULL_REQUEST: ${{ inputs.pr_number }}
+          CI_REPO_NAME: polkadot-docs-test
+          CI_REPO_OWNER: 0xLucca
+          
