@@ -63,3 +63,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GH_TOKEN}}
           REVIEWDOG_GITHUB_API_TOKEN: ${{secrets.GH_TOKEN}}
+          CI_PULL_REQUEST: ${{ inputs.pr_number }}
